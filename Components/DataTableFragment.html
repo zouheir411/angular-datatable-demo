@@ -1,0 +1,65 @@
+<div  class="container mt-5">
+<h4 class="display-3"> All Devices :</h4>
+<div class="row align-items-center g-2"><div class="col-auto">
+    <button class="btn btn-success" id="BtnAdd" data-bs-toggle="modal" data-bs-target="#AddDeviceModal">
+      Add <i class="bi bi-plus-square"></i>
+    </button>
+  </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped" 
+           data-table-directive 
+           table-id="DevTable" 
+           id="DevTable"
+           on-init="initCallback(table)">
+        <thead class="table-primary">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="DeviceTableBody">
+            <tr ng-repeat="device in devices track by device.id">
+                <td>{{device.id}}</td>
+                <td>{{device.name}}</td>
+                <td>
+                    <button class="btn btn-danger delete-btn" ng-click="DeleteDevice(device.id)">Delete <i class="bi bi-x-circle-fill"></i></button>
+                    <button class="btn btn-primary" ng-click="EditDevice(device.id)" data-bs-toggle="modal" data-bs-target="#AddDeviceModal">Edit <i class="bi bi-pen"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="AddDeviceModal" tabindex="-1" aria-labelledby="AddDeviceModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h5 class="modal-title" id="AddDeviceModalLabel">{{isEditMode ? 'Edit Device' : 'Add New Device'}}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+              <label for="DeviceName" class="form-label">Device Name</label>
+              <input type="text" id="DeviceName" class="form-control" ng-model="DeviceName" placeholder="Device Name ..." >
+              <div id="ErrorMsg"></div> <!-- Corrected the id to "ErrorMsg" for consistency -->
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" ng-click="isEditMode ? UpdateDevice() : AddDevice()">
+                {{isEditMode ? 'Confirm Changes' : 'Add Device'}} <i class="bi bi-check-circle-fill"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        $(document).ready(function() {
+            $('#DevTable').DataTable();
+        });
+    </script>

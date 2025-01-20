@@ -1,0 +1,18 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Dependency directories
+bower_components/
+
+# Build output
+/dist
+/tmp
+/out-tsc
+
+# IDE files
+.idea/
+.vscode/
